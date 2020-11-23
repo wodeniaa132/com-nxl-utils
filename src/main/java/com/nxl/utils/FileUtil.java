@@ -6,24 +6,54 @@ import java.util.List;
 
 public class FileUtil {
 
-    /**传入txt路径读取txt文件
+    /**
+     * 传入txt路径读取txt文件
+     * 返回列表(用于读取id等以行为单位的)
      * @param txtPath
      * @return 返回读取到的内容
      */
-    public static List<String> readTxt(String txtPath) {
+    public static List<String> readTxtForList(String txtPath) {
         File file = new File(txtPath);
-        if(file.isFile() && file.exists()){
+        if (file.isFile() && file.exists()) {
             try {
                 FileInputStream fileInputStream = new FileInputStream(file);
+                //有可能会出现编码问题，在new InputStreamReader(fileInputStream)中加"gbk"或"UTF-8"变为(fileInputStream, "gbk")
                 InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
                 String text = null;
                 List<String> result = new ArrayList<>();
-                while((text = bufferedReader.readLine()) != null){
+                while ((text = bufferedReader.readLine()) != null) {
                     result.add(text);
                 }
                 return result;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 传入txt路径读取txt文件
+     * 返回文本
+     * @param txtPath
+     * @return 返回读取到的内容
+     */
+    public static String readTxtForString(String txtPath) {
+        File file = new File(txtPath);
+        if (file.isFile() && file.exists()) {
+            try {
+                FileInputStream fileInputStream = new FileInputStream(file);
+                //有可能会出现编码问题，在new InputStreamReader(fileInputStream)中加"gbk"或"UTF-8"变为(fileInputStream, "gbk")
+                InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuffer sb = new StringBuffer();
+                String text = null;
+                while ((text = bufferedReader.readLine()) != null) {
+                    sb.append(text);
+                }
+                return sb.toString();
             } catch (Exception e) {
                 e.printStackTrace();
             }
