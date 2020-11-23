@@ -48,7 +48,7 @@ public class FileUtil {
                 InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
-                StringBuffer sb = new StringBuffer();
+                StringBuilder sb = new StringBuilder();
                 String text = null;
                 while ((text = bufferedReader.readLine()) != null) {
                     sb.append(text);
@@ -62,7 +62,8 @@ public class FileUtil {
     }
 
 
-    /**使用FileOutputStream来写入txt文件
+    /**
+     * 使用FileOutputStream来写入txt文件
      * @param txtPath txt文件路径
      * @param content 需要写入的文本
      */
@@ -84,6 +85,33 @@ public class FileUtil {
             fileOutputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * 传入文件或文件夹路径进行遍历
+     * @param path 要遍历的文件或文件夹路径
+     */
+    public static void getFiles(String path) {
+        File file = new File(path);
+        // 如果这个路径是文件夹
+        if (file.isDirectory()) {
+            // 获取路径下的所有文件
+            File[] files = file.listFiles();
+            for (File value : files) {
+                // 如果还是文件夹 递归获取里面的文件 文件夹
+                if (value.isDirectory()) {
+                    System.out.println("目录：" + value.getPath());
+                    getFiles(value.getPath());
+                } else {
+                    //这里写找到文件后的操作方法
+//                    System.out.println("这里写找到文件后的操作方法");
+                }
+            }
+        } else {
+            //这里写找到文件后的操作方法
+//            System.out.println("这里写找到文件后的操作方法");
         }
     }
 
