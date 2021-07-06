@@ -25,6 +25,7 @@ public class FileUtil {
                 while ((text = bufferedReader.readLine()) != null) {
                     result.add(text);
                 }
+                fileInputStream.close();
                 return result;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -53,6 +54,7 @@ public class FileUtil {
                 while ((text = bufferedReader.readLine()) != null) {
                     sb.append(text);
                 }
+                fileInputStream.close();
                 return sb.toString();
             } catch (Exception e) {
                 e.printStackTrace();
